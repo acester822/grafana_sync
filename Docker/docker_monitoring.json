@@ -1348,7 +1348,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-prom"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1656,7 +1656,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-prom"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2118,7 +2118,9 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "All",
+            "text": [
+              "All"
+            ],
             "value": [
               "$__all"
             ]
