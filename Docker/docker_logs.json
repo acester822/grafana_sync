@@ -1749,7 +1749,20 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/acester822/grafana_sync/blob/main/Docker/docker_logs.json"
+      }
+    ],
     "liveNow": false,
     "preferences": {
       "layout": {
@@ -1781,7 +1794,7 @@
       "timezone": "browser",
       "to": "now"
     },
-    "title": "Docker Container Logs Copy",
+    "title": "Docker Container Logs",
     "variables": [
       {
         "kind": "QueryVariable",
