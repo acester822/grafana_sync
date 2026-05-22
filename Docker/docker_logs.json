@@ -43,7 +43,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -131,7 +131,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -222,7 +222,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -313,7 +313,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -401,7 +401,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -489,7 +489,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -579,7 +579,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -763,7 +763,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -887,7 +887,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -910,7 +910,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1064,7 +1064,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1163,7 +1163,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1334,7 +1334,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1436,7 +1436,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1803,9 +1803,7 @@
           "allowCustomValue": true,
           "current": {
             "text": "All",
-            "value": [
-              "$__all"
-            ]
+            "value": "$__all"
           },
           "hide": "dontHide",
           "includeAll": true,
@@ -1815,7 +1813,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-logs"
+              "name": "${datasource}"
             },
             "group": "loki",
             "kind": "DataQuery",
@@ -1840,9 +1838,7 @@
           "allowCustomValue": true,
           "current": {
             "text": "All",
-            "value": [
-              "$__all"
-            ]
+            "value": "$__all"
           },
           "hide": "dontHide",
           "includeAll": true,
@@ -1852,7 +1848,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-logs"
+              "name": "${datasource}"
             },
             "group": "loki",
             "kind": "DataQuery",
@@ -1868,6 +1864,26 @@
           "regexApplyTo": "value",
           "skipUrlSync": false,
           "sort": "alphabeticalAsc"
+        }
+      },
+      {
+        "kind": "DatasourceVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "grafanacloud-ace911xx-alert-state-history",
+            "value": "grafanacloud-alert-state-history"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Data Source",
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "pluginId": "loki",
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false
         }
       }
     ]
