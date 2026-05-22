@@ -1871,8 +1871,8 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": "grafanacloud-ace911xx-logs",
+            "value": "grafanacloud-logs"
           },
           "hide": "dontHide",
           "includeAll": false,
@@ -1882,7 +1882,7 @@
           "options": [],
           "pluginId": "loki",
           "refresh": "onDashboardLoad",
-          "regex": "logs",
+          "regex": "^(?!.*alert-state|.*usage-insights).*",
           "skipUrlSync": false
         }
       }
