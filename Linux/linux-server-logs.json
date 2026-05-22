@@ -43,7 +43,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -129,7 +129,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -216,7 +216,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -303,7 +303,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -386,7 +386,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -510,7 +510,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -634,7 +634,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -728,7 +728,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -830,7 +830,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "grafanacloud-logs"
+                        "name": "${datasource}"
                       },
                       "group": "loki",
                       "kind": "DataQuery",
@@ -1073,7 +1073,20 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/acester822/grafana_sync/blob/main/Linux/linux-server-logs.json"
+      }
+    ],
     "liveNow": false,
     "preferences": {
       "layout": {
@@ -1126,7 +1139,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-logs"
+              "name": "${datasource}"
             },
             "group": "loki",
             "kind": "DataQuery",
@@ -1163,7 +1176,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-logs"
+              "name": "${datasource}"
             },
             "group": "loki",
             "kind": "DataQuery",
@@ -1179,6 +1192,26 @@
           "regexApplyTo": "value",
           "skipUrlSync": false,
           "sort": "alphabeticalAsc"
+        }
+      },
+      {
+        "kind": "DatasourceVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "grafanacloud-ace911xx-logs",
+            "value": "grafanacloud-logs"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Data Source",
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "pluginId": "loki",
+          "refresh": "onDashboardLoad",
+          "regex": "^(?!.*alert-state|.*usage-insights).*",
+          "skipUrlSync": false
         }
       }
     ]
