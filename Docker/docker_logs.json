@@ -1871,8 +1871,8 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "grafanacloud-ace911xx-alert-state-history",
-            "value": "grafanacloud-alert-state-history"
+            "text": "",
+            "value": ""
           },
           "hide": "dontHide",
           "includeAll": false,
@@ -1882,7 +1882,7 @@
           "options": [],
           "pluginId": "loki",
           "refresh": "onDashboardLoad",
-          "regex": "",
+          "regex": "logs",
           "skipUrlSync": false
         }
       }
