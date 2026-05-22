@@ -49,6 +49,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "editorMode": "code",
                         "expr": "count(container_last_seen{container!=\"\", container_label_com_docker_compose_project=~\"$project\", name=~\"$container\"})",
                         "instant": true,
                         "legendFormat": "Containers",
@@ -2130,7 +2131,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-prom"
+              "name": "${datasource}"
             },
             "group": "prometheus",
             "kind": "DataQuery",
@@ -2168,7 +2169,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "grafanacloud-prom"
+              "name": "${datasource}"
             },
             "group": "prometheus",
             "kind": "DataQuery",
