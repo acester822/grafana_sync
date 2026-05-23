@@ -585,6 +585,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "direction": "backward",
+                        "editorMode": "code",
                         "expr": "sum by(level) (rate({source=\"docker\", container=~\"$container\"}[1m]))",
                         "instant": false,
                         "legendFormat": "{{level}}",
@@ -605,6 +607,7 @@
           "id": 20,
           "links": [],
           "title": "Log Rate by Level",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -769,6 +772,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "direction": "backward",
+                        "editorMode": "code",
                         "expr": "topk(10, sum by(container) (rate({source=\"docker\", container=~\"$container\"}[1m])))",
                         "instant": false,
                         "legendFormat": "{{container}}",
@@ -789,6 +794,7 @@
           "id": 21,
           "links": [],
           "title": "Log Rate by Container (Top 10)",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -893,6 +899,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "direction": "backward",
+                        "editorMode": "code",
                         "expr": "sum by(container) (rate({source=\"docker\", container=~\"$container\"} |~ `(?i)(\\berror\\b|\\bexception\\b|\\bfailed\\b)` [1m]))",
                         "instant": false,
                         "legendFormat": "error · {{container}}",
@@ -916,6 +924,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "direction": "backward",
+                        "editorMode": "code",
                         "expr": "sum by(container) (rate({source=\"docker\", container=~\"$container\"} |~ `(?i)\\bwarn(ing)?\\b` [1m]))",
                         "instant": false,
                         "legendFormat": "warn · {{container}}",
@@ -936,6 +946,7 @@
           "id": 22,
           "links": [],
           "title": "Errors \u0026 Warnings by Container",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
