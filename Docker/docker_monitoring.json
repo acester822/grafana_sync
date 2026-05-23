@@ -115,7 +115,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -209,7 +209,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -300,7 +300,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -388,7 +388,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -476,7 +476,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -564,7 +564,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -607,6 +607,7 @@
           "id": 22,
           "links": [],
           "title": "CPU Usage per Container",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -688,7 +689,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -812,7 +813,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -936,7 +937,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1060,7 +1061,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1184,7 +1185,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1308,7 +1309,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -2118,9 +2119,7 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": [
-              "All"
-            ],
+            "text": "All",
             "value": [
               "$__all"
             ]
@@ -2203,8 +2202,8 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "grafanacloud-ace911xx-prom",
-            "value": "grafanacloud-prom"
+            "text": "AI Metrics",
+            "value": "ai-metrics"
           },
           "hide": "dontHide",
           "includeAll": false,
