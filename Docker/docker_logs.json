@@ -114,7 +114,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -205,7 +205,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -296,7 +296,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -384,7 +384,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -472,7 +472,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -562,7 +562,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -746,7 +746,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -870,7 +870,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1047,7 +1047,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1070,6 +1070,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "app": "grafana-assistant-app",
+                        "direction": "backward",
+                        "editorMode": "code",
                         "expr": "sum by(container) (count_over_time({source=\"docker\", container=~\"$container\"} |~ \"(?i)(error|exception|failed|critical)\" [$__range]))",
                         "instant": true,
                         "legendFormat": "{{container}}",
@@ -1090,6 +1092,7 @@
           "id": 23,
           "links": [],
           "title": "Top Containers by Error Count",
+          "transparent": true,
           "vizConfig": {
             "group": "bargauge",
             "kind": "VizConfig",
@@ -1146,7 +1149,7 @@
                 "valueMode": "color"
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1317,7 +1320,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1419,7 +1422,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -1488,7 +1491,7 @@
                 "wrapLogMessage": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       }
@@ -1871,8 +1874,8 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "grafanacloud-ace911xx-logs",
-            "value": "grafanacloud-logs"
+            "text": "Logs",
+            "value": "logs"
           },
           "hide": "dontHide",
           "includeAll": false,
