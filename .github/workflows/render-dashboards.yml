@@ -23,19 +23,21 @@ jobs:
           before="${{ github.event.before }}"
           after="${{ github.sha }}"
 
-          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
-            echo "No valid previous commit found; using HEAD^..HEAD"
-            files=$(git diff --name-only HEAD^ HEAD -- '*.json' || true)
+          if [ -n "$before" ] && [ "$before" != "0000000000000000000000000000000000000000" ]; then
+            git diff --name-only "$before" "$after" -- '*.json' > changed_files.txt || true
+          elif git rev-parse HEAD^ >/dev/null 2>&1; then
+            git diff --name-only HEAD^ HEAD -- '*.json' > changed_files.txt || true
           else
-            files=$(git diff --name-only "$before" "$after" -- '*.json' || true)
+            echo "No previous commit available; nothing to diff."
+            exit 0
           fi
 
-          if [ -z "$files" ]; then
+          if [ ! -s changed_files.txt ]; then
             echo "No changed JSON files found."
             exit 0
           fi
 
-          printf '%s\n' "$files" | while IFS= read -r file; do
+          while IFS= read -r file; do
             [ -f "$file" ] || continue
 
             uid=$(jq -r '.uid // empty' "$file")
@@ -51,7 +53,7 @@ jobs:
               -H "Authorization: Bearer $GRAFANA_TOKEN" \
               "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv" \
               -o "${dir}/${uid}.png"
-          done
+          done < changed_files.txt
 
       - name: Commit PNGs
         run: |
