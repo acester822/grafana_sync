@@ -10,17 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: Render PNGs for changed dashboards
         env:
           GRAFANA_URL: https://grafana.ftr10.dev
           GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
         run: |
-          git diff --name-only HEAD~1 HEAD | grep '\.json$' | while read file; do
+          set -euo pipefail
+
+          jq -r '
+            [.commits[].added[], .commits[].modified[]]
+            | unique
+            | .[]
+            | select(test("\\.json$"))
+          ' "$GITHUB_EVENT_PATH" | while IFS= read -r file; do
+            [ -f "$file" ] || continue
+
             uid=$(jq -r '.uid' "$file")
             dir=$(dirname "$file")
+
+            if [ -z "$uid" ] || [ "$uid" = "null" ]; then
+              echo "Skipping $file because .uid is missing"
+              continue
+            fi
+
             echo "Rendering $uid from $file"
             curl -sf \
               -H "Authorization: Bearer $GRAFANA_TOKEN" \
@@ -30,6 +43,7 @@ jobs:
 
       - name: Commit PNGs
         run: |
+          set -euo pipefail
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
@@ -38,4 +52,6 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "chore: update dashboard previews"
             git push
+          else
+            echo "No PNG changes to commit."
           fi
