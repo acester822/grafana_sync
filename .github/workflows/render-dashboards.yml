@@ -1,57 +1,30 @@
-name: Render dashboard previews
+- name: Render PNGs for changed dashboards
+  env:
+    GRAFANA_URL: https://grafana.ftr10.dev
+    GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
+  run: |
+    set -euo pipefail
 
-on:
-  push:
-    paths:
-      - '**/*.json'
+    jq -r '
+      [(.commits // [])[] | (.added // []), (.modified // [])]
+      | flatten
+      | unique
+      | .[]
+      | select(endswith(".json"))
+    ' "$GITHUB_EVENT_PATH" | while IFS= read -r file; do
+      [ -f "$file" ] || continue
 
-jobs:
-  render:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      uid=$(jq -r '.uid' "$file")
+      dir=$(dirname "$file")
 
-      - name: Render PNGs for changed dashboards
-        env:
-          GRAFANA_URL: https://grafana.ftr10.dev
-          GRAFANA_TOKEN: ${{ secrets.GRAFANA_TOKEN }}
-        run: |
-          set -euo pipefail
+      if [ -z "$uid" ] || [ "$uid" = "null" ]; then
+        echo "Skipping $file because .uid is missing"
+        continue
+      fi
 
-          jq -r '
-            [.commits[].added[], .commits[].modified[]]
-            | unique
-            | .[]
-            | select(test("\\.json$"))
-          ' "$GITHUB_EVENT_PATH" | while IFS= read -r file; do
-            [ -f "$file" ] || continue
-
-            uid=$(jq -r '.uid' "$file")
-            dir=$(dirname "$file")
-
-            if [ -z "$uid" ] || [ "$uid" = "null" ]; then
-              echo "Skipping $file because .uid is missing"
-              continue
-            fi
-
-            echo "Rendering $uid from $file"
-            curl -sf \
-              -H "Authorization: Bearer $GRAFANA_TOKEN" \
-              "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv" \
-              -o "${dir}/${uid}.png"
-          done
-
-      - name: Commit PNGs
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-
-          find . -type f -name '*.png' -print0 | xargs -0 -r git add
-
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: update dashboard previews"
-            git push
-          else
-            echo "No PNG changes to commit."
-          fi
+      echo "Rendering $uid from $file"
+      curl -sf \
+        -H "Authorization: Bearer $GRAFANA_TOKEN" \
+        "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv" \
+        -o "${dir}/${uid}.png"
+    done
