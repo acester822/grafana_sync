@@ -859,6 +859,7 @@
           "id": 18,
           "links": [],
           "title": "Live Log Viewer",
+          "transparent": true,
           "vizConfig": {
             "group": "logs",
             "kind": "VizConfig",
