@@ -243,6 +243,7 @@
           "id": 12,
           "links": [],
           "title": "Warnings",
+          "transparent": true,
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
