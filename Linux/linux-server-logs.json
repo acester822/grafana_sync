@@ -112,7 +112,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -199,7 +199,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -286,7 +286,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -369,7 +369,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -412,6 +412,7 @@
           "id": 14,
           "links": [],
           "title": "Log Rate by Unit",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -493,7 +494,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -536,6 +537,7 @@
           "id": 15,
           "links": [],
           "title": "Errors \u0026 Warnings Over Time",
+          "transparent": true,
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -617,7 +619,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -660,6 +662,7 @@
           "id": 16,
           "links": [],
           "title": "Log Level Distribution",
+          "transparent": true,
           "vizConfig": {
             "group": "piechart",
             "kind": "VizConfig",
@@ -711,7 +714,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -754,6 +757,7 @@
           "id": 17,
           "links": [],
           "title": "Log Volume Heatmap",
+          "transparent": true,
           "vizConfig": {
             "group": "heatmap",
             "kind": "VizConfig",
@@ -813,7 +817,7 @@
                 }
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       },
@@ -880,7 +884,7 @@
                 "wrapLogMessage": true
               }
             },
-            "version": "13.1.0-25668120414"
+            "version": "13.0.1"
           }
         }
       }
@@ -1199,8 +1203,8 @@
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "grafanacloud-ace911xx-logs",
-            "value": "grafanacloud-logs"
+            "text": "Logs",
+            "value": "logs"
           },
           "hide": "dontHide",
           "includeAll": false,
