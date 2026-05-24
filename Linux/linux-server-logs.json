@@ -331,7 +331,6 @@
           "id": 13,
           "links": [],
           "title": "Active Units",
-          "transparent": true,
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
