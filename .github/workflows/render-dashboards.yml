@@ -3,7 +3,10 @@ name: Render dashboard previews
 on:
   push:
     paths:
-      - '**/*.json'
+      - 'dashboards/**/*.json'
+
+permissions:
+  contents: write
 
 jobs:
   render:
@@ -49,13 +52,17 @@ jobs:
             fi
 
             echo "Rendering $uid from $file"
-            curl -sf \
+            if ! curl -sf \
               -H "Authorization: Bearer $GRAFANA_TOKEN" \
               "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv" \
-              -o "${dir}/${uid}.png"
+              -o "${dir}/${uid}.png"; then
+              echo "Failed to render dashboard $uid from $file"
+            fi
           done < changed_files.txt
 
       - name: Commit PNGs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           git config user.name "github-actions"
@@ -65,7 +72,7 @@ jobs:
 
           if ! git diff --cached --quiet; then
             git commit -m "chore: update dashboard previews"
-            git push
+            git push origin HEAD:${{ github.ref_name }}
           else
             echo "No PNG changes to commit."
           fi
