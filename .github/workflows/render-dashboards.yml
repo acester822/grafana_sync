@@ -56,7 +56,7 @@ jobs:
             echo "Rendering $uid from $file"
             if ! curl -sf \
               -H "Authorization: Bearer $GRAFANA_TOKEN" \
-              "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv&orgId=1&timezone=browser" \
+              "$GRAFANA_URL/render/dashboard/uid/${uid}?width=1400&height=900" \
               -o "${dir}/${uid}.png"; then
               echo "Failed to render dashboard $uid from $file"
             fi
