@@ -68,6 +68,7 @@
           "id": 10,
           "links": [],
           "title": "Total Log Lines",
+          "transparent": true,
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
