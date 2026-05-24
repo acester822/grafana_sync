@@ -3,7 +3,9 @@ name: Render dashboard previews
 on:
   push:
     paths:
-      - 'dashboards/**/*.json'
+      - 'Linux/**/*.json'
+      - 'Docker/**/*.json'
+      - 'Windows/**/*.json'
 
 permissions:
   contents: write
@@ -43,7 +45,7 @@ jobs:
           while IFS= read -r file; do
             [ -f "$file" ] || continue
 
-            uid=$(jq -r '.uid // empty' "$file")
+            uid=$(jq -r '.metadata.name // empty' "$file")
             dir=$(dirname "$file")
 
             if [ -z "$uid" ]; then
