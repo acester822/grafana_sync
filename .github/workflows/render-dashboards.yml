@@ -54,11 +54,9 @@ jobs:
             fi
 
             echo "Rendering $uid from $file"
-            if ! curl -sf -X POST \
+            if ! curl -sf \
               -H "Authorization: Bearer $GRAFANA_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "{\"dashboard\":{\"id\":\"$uid\"},\"width\":1400,\"height\":900}" \
-              "$GRAFANA_URL/api/render/dashboards/uid/${uid}" \
+              "$GRAFANA_URL/render/d/${uid}?width=1400&height=900&kiosk=tv&orgId=1&timezone=browser" \
               -o "${dir}/${uid}.png"; then
               echo "Failed to render dashboard $uid from $file"
             fi
