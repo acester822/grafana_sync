@@ -155,6 +155,7 @@
           "id": 11,
           "links": [],
           "title": "Errors",
+          "transparent": true,
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
