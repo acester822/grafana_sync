@@ -1704,11 +1704,12 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_gpu_idle{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_gpu_idle{uuid=\"$gpu\"}",
                         "instant": false,
-                        "interval": "",
-                        "legendFormat": "Idle"
+                        "legendFormat": "Idle",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1721,15 +1722,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_hw_thermal_slowdown{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_hw_thermal_slowdown{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "HW Thermal Slowdown"
+                        "instant": false,
+                        "legendFormat": "HW Thermal Slowdown",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1742,15 +1745,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_sw_power_cap{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_sw_power_cap{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "SW Power Cap"
+                        "instant": false,
+                        "legendFormat": "SW Power Cap",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1763,15 +1768,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_applications_clocks_setting{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_applications_clocks_setting{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "App Clocks Setting"
+                        "instant": false,
+                        "legendFormat": "App Clocks Setting",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1784,15 +1791,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_hw_power_brake_slowdown{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_hw_power_brake_slowdown{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "HW Power Brake"
+                        "instant": false,
+                        "legendFormat": "HW Power Brake",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1805,15 +1814,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_sw_thermal_slowdown{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_sw_thermal_slowdown{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "SW Thermal Slowdown"
+                        "instant": false,
+                        "legendFormat": "SW Thermal Slowdown",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1826,15 +1837,17 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "metrics"
+                        "name": "${datasource}"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "exemplar": true,
+                        "app": "grafana-assistant-app",
                         "expr": "nvidia_smi_clocks_event_reasons_sync_boost{uuid=\"$gpu\"} or nvidia_smi_clocks_throttle_reasons_sync_boost{uuid=\"$gpu\"}",
-                        "interval": "",
-                        "legendFormat": "Sync Boost"
+                        "instant": false,
+                        "legendFormat": "Sync Boost",
+                        "queryType": "range",
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -2122,7 +2135,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "exemplar": true,
-                        "expr": "nvidia_smi_fan_speed_ratio{uuid=\"$gpu\"}",
+                        "expr": "llamaswap_gpu_fan_speed_percent{uuid=~\"(GPU-)?$gpu\"}",
                         "interval": "",
                         "legendFormat": ""
                       },
@@ -2149,7 +2162,7 @@
                   "color": {
                     "mode": "thresholds"
                   },
-                  "max": 1,
+                  "max": 100,
                   "min": 0,
                   "thresholds": {
                     "mode": "percentage",
@@ -2168,7 +2181,7 @@
                       }
                     ]
                   },
-                  "unit": "percentunit"
+                  "unit": "percent"
                 },
                 "overrides": []
               },
@@ -2551,7 +2564,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "exemplar": true,
-                        "expr": "nvidia_smi_fan_speed_ratio{uuid=\"$gpu\"}",
+                        "expr": "llamaswap_gpu_fan_speed_percent{uuid=~\"(GPU-)?$gpu\"}",
                         "interval": "",
                         "legendFormat": "{{uuid}}"
                       },
@@ -2612,7 +2625,7 @@
                       "mode": "line+area"
                     }
                   },
-                  "max": 1,
+                  "max": 100,
                   "min": 0,
                   "thresholds": {
                     "mode": "absolute",
@@ -2631,7 +2644,7 @@
                       }
                     ]
                   },
-                  "unit": "percentunit"
+                  "unit": "percent"
                 },
                 "overrides": []
               },
