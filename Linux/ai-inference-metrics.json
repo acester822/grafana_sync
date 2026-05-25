@@ -1,0 +1,2249 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "aib8xkz7m9n0p1q"
+  },
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "builtIn": true,
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "query": {
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
+          }
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "description": "AI inference server metrics: token generation speed, GPU utilization, memory, and temperature from llama-server and llama-swap",
+    "editable": true,
+    "elements": [
+      {
+        "id": 1,
+        "title": "Token Speed (tokens/sec)",
+        "description": "Tokens generated per second (speed of inference)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:predicted_tokens_seconds{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 5
+                },
+                {
+                  "color": "green",
+                  "value": 10
+                }
+              ]
+            },
+            "unit": "reqps"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Prompt Time (seconds)",
+        "description": "Prompt processing time in seconds",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:prompt_tokens_seconds{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 5
+                },
+                {
+                  "color": "red",
+                  "value": 15
+                }
+              ]
+            },
+            "unit": "s"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Active Requests",
+        "description": "Number of requests currently being processed",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 0
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:requests_processing{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 3
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 4,
+        "title": "Deferred Requests",
+        "description": "Number of deferred requests (waiting for capacity)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 0
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:requests_deferred{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 5
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 5,
+        "title": "Busy Decode Slots",
+        "description": "Number of busy decode slots (0 = no active generation)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 4
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:n_busy_slots_per_decode{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 3
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 6,
+        "title": "Max Context Size",
+        "description": "Maximum context window size for the loaded model",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 4
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:n_tokens_max{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 7,
+        "title": "Total Decodes",
+        "description": "Total decode iterations (cumulative)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 4
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:n_decode_total{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 8,
+        "title": "Total Tokens Predicted",
+        "description": "Total tokens predicted (cumulative)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 4
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:tokens_predicted_total{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 9,
+        "title": "Total Prompt Tokens",
+        "description": "Total prompt tokens processed (cumulative)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 8
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamacpp:prompt_tokens_total{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 10,
+        "title": "GPU Utilization %",
+        "description": "GPU utilization from llama-swap (RTX 4090)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 8
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 11,
+        "title": "VRAM Utilization %",
+        "description": "VRAM utilization from llama-swap",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 8
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_memory_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 12,
+        "title": "GPU Temp (C)",
+        "description": "GPU temperature from llama-swap",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 8
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_temperature_celsius{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 65
+                },
+                {
+                  "color": "red",
+                  "value": 85
+                }
+              ]
+            },
+            "unit": "celsius"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 13,
+        "title": "VRAM Temp (C)",
+        "description": "VRAM temperature from llama-swap",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 12
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_vram_temperature_celsius{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 100
+                }
+              ]
+            },
+            "unit": "celsius"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 14,
+        "title": "VRAM Used (GB)",
+        "description": "VRAM used in GB",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 12
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_memory_used_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 10
+                },
+                {
+                  "color": "red",
+                  "value": 14
+                }
+              ]
+            },
+            "unit": "bytes"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 15,
+        "title": "VRAM Total (GB)",
+        "description": "Total VRAM available",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 12
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_memory_total_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "bytes"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 16,
+        "title": "GPU Power (W)",
+        "description": "GPU power draw in watts",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 12
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_power_draw_watts{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 200
+                },
+                {
+                  "color": "red",
+                  "value": 300
+                }
+              ]
+            },
+            "unit": "watt"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 17,
+        "title": "GPU Fan Speed %",
+        "description": "GPU fan speed percentage",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 16
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_fan_speed_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 60
+                },
+                {
+                  "color": "red",
+                  "value": 85
+                }
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 18,
+        "title": "CPU Utilization %",
+        "description": "CPU utilization from llama-swap (avg across cores)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 16
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_cpu_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 19,
+        "title": "Host Memory Used (GB)",
+        "description": "Host memory used in GB",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 16
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_memory_used_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 16
+                },
+                {
+                  "color": "red",
+                  "value": 24
+                }
+              ]
+            },
+            "unit": "bytes"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 20,
+        "title": "Host Memory Total (GB)",
+        "description": "Total host memory available",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 18,
+          "y": 16
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_memory_total_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "bytes"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 21,
+        "title": "Load Average (1m)",
+        "description": "1-minute load average from llama-swap host",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 0,
+          "y": 20
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "llamaswap_load_average{job=~\"integrations/ai/(inference-latency|token-generation)\",interval=\"1m\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 4
+                },
+                {
+                  "color": "red",
+                  "value": 8
+                }
+              ]
+            },
+            "unit": "short"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 22,
+        "title": "GPU Util % (nvidia_smi)",
+        "description": "GPU utilization from nvidia_gpu_exporter (local)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 6,
+          "y": 20
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nvidia_smi_utilization_gpu_ratio{job=\"integrations/nvidia_gpu\"} * 100",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 70
+                },
+                {
+                  "color": "red",
+                  "value": 95
+                }
+              ]
+            },
+            "unit": "percent"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 23,
+        "title": "GPU Temp C (nvidia_smi)",
+        "description": "GPU temperature from nvidia_gpu_exporter (local)",
+        "gridPos": {
+          "h": 4,
+          "w": 6,
+          "x": 12,
+          "y": 20
+        },
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "nvidia_smi_temperature_gpu{job=\"integrations/nvidia_gpu\"}",
+            "refId": "A",
+            "instant": true,
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "yellow",
+                  "value": 65
+                },
+                {
+                  "color": "red",
+                  "value": 85
+                }
+              ]
+            },
+            "unit": "celsius"
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "textMode": "auto"
+        }
+      },
+      {
+        "id": 24,
+        "title": "Token Speed Over Time (tokens/sec)",
+        "description": "Token generation speed over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 24
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamacpp:predicted_tokens_seconds{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "reqps",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 25,
+        "title": "Prompt Time Over Time (seconds)",
+        "description": "Prompt processing time over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 30
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamacpp:prompt_tokens_seconds{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 26,
+        "title": "Active Requests Over Time",
+        "description": "Active requests over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 36
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamacpp:requests_processing{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 27,
+        "title": "Deferred Requests Over Time",
+        "description": "Deferred requests over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 42
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamacpp:requests_deferred{job=\"integrations/llama-server\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 28,
+        "title": "GPU Utilization % Over Time",
+        "description": "GPU utilization from llama-swap over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 48
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 29,
+        "title": "GPU Temp (C) Over Time",
+        "description": "GPU temperature from llama-swap over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 54
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_temperature_celsius{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "celsius",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 30,
+        "title": "VRAM Utilization % Over Time",
+        "description": "VRAM utilization from llama-swap over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 60
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_memory_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 31,
+        "title": "VRAM Used (GB) Over Time",
+        "description": "VRAM used in GB over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 66
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_memory_used_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 32,
+        "title": "GPU Power (W) Over Time",
+        "description": "GPU power draw in watts over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 72
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_gpu_power_draw_watts{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "watt",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 33,
+        "title": "CPU Utilization % Over Time",
+        "description": "CPU utilization from llama-swap over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 78
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_cpu_util_percent{job=~\"integrations/ai/(inference-latency|token-generation)\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 34,
+        "title": "Host Memory Used (GB) Over Time",
+        "description": "Host memory used in GB over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 84
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "llamaswap_memory_used_bytes{job=~\"integrations/ai/(inference-latency|token-generation)\"} / 1024 / 1024 / 1024",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 35,
+        "title": "GPU Util % (nvidia_smi) Over Time",
+        "description": "GPU utilization from nvidia_gpu_exporter over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 90
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "nvidia_smi_utilization_gpu_ratio{job=\"integrations/nvidia_gpu\"} * 100",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      },
+      {
+        "id": 36,
+        "title": "GPU Temp C (nvidia_smi) Over Time",
+        "description": "GPU temperature from nvidia_gpu_exporter over time",
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 96
+        },
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "nvidia_smi_temperature_gpu{job=\"integrations/nvidia_gpu\"}",
+            "refId": "A",
+            "legendFormat": "{{instance}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "celsius",
+            "custom": {
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "lineWidth": 1,
+              "pointSize": 5,
+              "showPoints": "never",
+              "spanNulls": false,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "axisLabel": "",
+              "axisColorMode": "text",
+              "axisBorderShow": false,
+              "thresholdsStyle": {
+                "mode": "off"
+              },
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              }
+            }
+          }
+        },
+        "options": {
+          "legend": {
+            "calcs": [
+              "mean",
+              "max"
+            ],
+            "displayMode": "table",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        }
+      }
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "text": "ai-metrics",
+            "value": "ai-metrics"
+          },
+          "datasource": {
+            "name": "Prometheus",
+            "type": "prometheus",
+            "uid": "ai-metrics"
+          },
+          "hide": 0,
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "title": "AI Inference Metrics",
+    "uid": "aib8xkz7m9n0p1q"
+  }
+}
